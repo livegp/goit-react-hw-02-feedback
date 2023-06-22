@@ -1,47 +1,15 @@
 import { Component } from 'react';
-
-const FeedbackOptions = ({ options, onLeaveFeedback }) => {
-  return (
-    <div>
-      {options.map(option => (
-        <button key={option} onClick={() => onLeaveFeedback(option)}>
-          {option}
-        </button>
-      ))}
-    </div>
-  );
-};
-
-const Statistics = ({ good, neutral, bad, total, positivePercentage }) => {
-  return (
-    <div>
-      <p>Good: {good}</p>
-      <p>Neutral: {neutral}</p>
-      <p>Bad: {bad}</p>
-      <p>Total: {total}</p>
-      <p>Positive feedback: {positivePercentage}%</p>
-    </div>
-  );
-};
-
-const Section = ({ title, children }) => {
-  return (
-    <div>
-      <h2>{title}</h2>
-      {children}
-    </div>
-  );
-};
-
-const Notification = ({ message }) => {
-  return <p>{message}</p>;
-};
+import { Container } from './App.styled';
+import FeedbackOptions from 'components/FeedbackOptions/FeedbackOptions';
+import Notification from 'components/Notification/Notification';
+import Section from 'components/Section/Section';
+import Statistics from 'components/Statistics/Statistics';
 
 class App extends Component {
   state = {
+    bad: 0,
     good: 0,
     neutral: 0,
-    bad: 0,
   };
 
   handleFeedback = option => {
@@ -67,7 +35,7 @@ class App extends Component {
     const positivePercentage = this.countPositiveFeedbackPercentage();
 
     return (
-      <div>
+      <Container>
         <Section title="Please leave your feedback">
           <FeedbackOptions
             options={['good', 'neutral', 'bad']}
@@ -88,7 +56,7 @@ class App extends Component {
             <Notification message="There is no feedback" />
           )}
         </Section>
-      </div>
+      </Container>
     );
   }
 }

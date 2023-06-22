@@ -1,59 +1,39 @@
-import { Component } from 'react';
-import Notification from 'components/Notification/Notification';
+import PropTypes from 'prop-types';
+import { Table } from './Statistics.styled';
 
-class Statistics extends Component {
-  state = {
-    bad: 0,
-    good: 0,
-    neutral: 0,
-  };
+const Statistics = ({ good, neutral, bad, total, positivePercentage }) => {
+  return (
+    <Table>
+      <tr>
+        <td>Good:</td>
+        <td>{good}</td>
+      </tr>
+      <tr>
+        <td>Neutral:</td>
+        <td>{neutral}</td>
+      </tr>
+      <tr>
+        <td>Bad:</td>
+        <td>{bad}</td>
+      </tr>
+      <tr>
+        <td>Total:</td>
+        <td>{total}</td>
+      </tr>
+      <tr>
+        <td>Positive feedback:</td>
+        <td>{positivePercentage}%</td>
+      </tr>
+    </Table>
+  );
+};
 
-  handleClick = event => {
-    const { name } = event.target;
-    this.setState(prevState => ({
-      [name]: prevState[name] + 1,
-    }));
-  };
-
-  countTotalFeedback = () => {
-    const { good, neutral, bad } = this.state;
-    return good + neutral + bad;
-  };
-
-  countPositiveFeedbackPercentage = () => {
-    const { good } = this.state;
-    return Math.round((good / this.countTotalFeedback()) * 100);
-  };
-
-  render() {
-    const { good, neutral, bad } = this.state;
-    const total = this.countTotalFeedback();
-    const positivePercentage = this.countPositiveFeedbackPercentage();
-
-    if (total === 0) {
-      return <Notification message="There is no feedback" />;
-    }
-    return (
-      <div>
-        <div>
-          <button name="good" onClick={this.handleClick}>
-            Good
-          </button>
-          <button name="neutral" onClick={this.handleClick}>
-            Neutral
-          </button>
-          <button name="bad" onClick={this.handleClick}>
-            Bad
-          </button>
-        </div>
-        <p>Good: {good}</p>
-        <p>Neutral: {neutral}</p>
-        <p>Bad: {bad}</p>
-        <p>Total: {total}</p>
-        <p>Positive feedback: {positivePercentage}%</p>
-      </div>
-    );
-  }
-}
+Statistics.propTypes = {
+  bad: PropTypes.number.isRequired,
+  good: PropTypes.number.isRequired,
+  neutral: PropTypes.number.isRequired,
+  positivePercentage: PropTypes.number.isRequired,
+  total: PropTypes.number.isRequired,
+};
 
 export default Statistics;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Container = styled.section`
+export const Container = styled.section`
   color: #3b5998;
   display: flex;
   flex-direction: column;
@@ -14,4 +14,8 @@ const Container = styled.section`
   width: 100%;
 `;
 
-export default Container;
+export const Title = styled.h2`
+  padding: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+`;
