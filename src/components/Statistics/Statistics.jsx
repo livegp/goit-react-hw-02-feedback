@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import Notification from 'components/Notification/Notification';
 
 class Statistics extends Component {
   state = {
@@ -10,7 +11,6 @@ class Statistics extends Component {
   handleClick = event => {
     const { name } = event.target;
     this.setState(prevState => ({
-      // eslint-disable-next-line no-magic-numbers
       [name]: prevState[name] + 1,
     }));
   };
@@ -22,7 +22,6 @@ class Statistics extends Component {
 
   countPositiveFeedbackPercentage = () => {
     const { good } = this.state;
-    // eslint-disable-next-line no-magic-numbers
     return Math.round((good / this.countTotalFeedback()) * 100);
   };
 
@@ -31,6 +30,9 @@ class Statistics extends Component {
     const total = this.countTotalFeedback();
     const positivePercentage = this.countPositiveFeedbackPercentage();
 
+    if (total === 0) {
+      return <Notification message="There is no feedback" />;
+    }
     return (
       <div>
         <div>
